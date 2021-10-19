@@ -25,15 +25,15 @@ function loginProcess(success) {
         alert("try a different user name")
     } else {
 
-        navigator.getUserMedia(
-            { video: true, audio: true },
-            function (mystream) {
-                stream = mystream;
-                local_video.srcObject = stream;
-            },
-            function (error) {
-                console.log(error);
-            });
+        // navigator.getUserMedia(
+        //     { video: true, audio: true },
+        //     function (mystream) {
+        //         stream = mystream;
+        //         local_video.srcObject = stream;
+        //     },
+        //     function (error) {
+        //         console.log(error);
+        //     });
     }
 }
 
@@ -41,7 +41,7 @@ var clientName;
 var url_string = window.location.href;
 var url = new URL(url_string);
 var username = url.searchParams.get("username");
-var local_video = document.querySelector("#local-video");
+var local_video = document.querySelector("#remote-video");
 
 var connectedUser;
 function send(message) {
@@ -69,3 +69,12 @@ setTimeout(() => {
     }
 }, 6000);
 
+navigator.getUserMedia(
+    { video: true, audio: true },
+    function (mystream) {
+        stream = mystream;
+        local_video.srcObject = stream;
+    },
+    function (error) {
+        console.log(error);
+    });
