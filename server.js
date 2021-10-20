@@ -9,8 +9,7 @@ var users = {
 }
 
 wss.on('connection', function (connection) {
-    console.log("User connected");
-    
+    console.log("User connected");    
     connection.on("message", function(message) {
         var data; 
         try {
@@ -37,7 +36,19 @@ wss.on('connection', function (connection) {
                     })
                 }
                 break;
+            case "offer": 
+            var connect = users[data.name];
+            if(connect != null){
+                connect.otherUser = data.name
+                sendToOtherUser(connection, {
+                    type:"offer",
+                    offer: data.offer,
+                    name : connect.name
+                })
+            }
+            break;
         }
+        
     });
 
     connection.on("close", function(message) {
